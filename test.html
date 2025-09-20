@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mominah Dyeing Services</title>
+
+  <!-- External Styles -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+
+  <!-- Internal Styles -->
+  <style>
+  html {
+    scroll-behavior: smooth;
+  }
+  /* Offset for fixed navbar (adjust 70px to your navbar’s actual height) */
+  section {
+    scroll-margin-top: 70px;
+  }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: #f5f5f5;
+      color: #333;
+    }
+    #loader {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #0077b6, #90e0ef);
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .loader-logo img {
+      width: 100px;
+      animation: pulse 1.5s infinite;
+    }
+    .loader-ring {
+      width: 60px;
+      height: 60px;
+      border: 6px solid #fff;
+      border-top-color: #333;
+      border-radius: 50%;
+      margin-top: 20px;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.1); opacity: 0.7; }
+    }
+
+    .navbar { transition: background-color 0.3s ease, box-shadow 0.3s ease; }
+    .navbar.scrolled { background: #fff !important; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    .navbar-nav > li > a {   transition: color 0.3s ease, background-color 0.3s ease; }
+    .navbar.scrolled .navbar-nav > li > a { color: #0077b6 !important; }
+    .section-padding { padding: 60px 0; }
+    .section-title h2 { font-size: 32px; color: #023e8a; margin-bottom: 10px; }
+    .section-title p { color: #666; }
+
+    .hero-slide {
+      height: 100vh;
+      background: url('assets/img/hero1.jpg') center center / cover no-repeat fixed;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #fff;
+    }
+    .hero-slide h2 { font-size: 48px; }
+    .hero-slide p { font-size: 18px; }
+    .hero-slide .btn { margin: 10px; }
+
+    .swiper-slide {
+      background: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .swiper-slide img { max-width: 100%; border-radius: 6px; }
+    .swiper-slide h5 { margin-top: 10px; font-weight: 600; }
+
+    #contact-form input, #contact-form textarea {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 10px;
+      width: 100%;
+      margin-bottom: 15px;
+    }
+    #contact-form button {
+      background: #0077b6;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 4px;
+    }
+    #contact-form button:hover {
+      background: #90e0ef;
+      color: #000;
+    }
+
+    .floating-contact {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #0077b6;
+      color: #fff;
+      padding: 12px 16px;
+      border-radius: 50%;
+      font-size: 20px;
+      z-index: 999;
+    }
+    .floating-contact:hover {
+      background: #90e0ef;
+      color: #000;
+    }
+
+    .footer {
+      background: #023e8a;
+      color: #fff;
+      padding: 20px 0;
+      text-align: center;
+    }
+    .footer ul { list-style: none; padding: 0; }
+    .footer ul li { display: inline-block; margin: 0 10px; }
+    .footer ul li a { color: #fff; font-size: 18px; }
+    .footer ul li a:hover { color: #90e0ef; }
+  </style>
+  <!-- Hero Section -->
+  <style>
+  .hero-slide {
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-content {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 30px;
+  border-radius: 8px;
+  color: #fff;
+}
+.hero-content h2 {
+  font-size: 48px;
+  margin-bottom: 20px;
+}
+.hero-content p {
+  font-size: 18px;
+  margin-bottom: 30px;
+}
+.hero-content .btn {
+  margin: 5px;
+}
+.carousel-control {
+  background: none;
+  font-size: 40px;
+  color: #fff;
+}
+</style>
+</head>
+<body data-spy="scroll" data-target=".navbar" data-offset="80">
+   <!-- Loader -->
+  <div id="loader">
+    <div class="loader-logo"><img src="assets/img/logo.png" alt="Loading Logo" /></div>
+    <div class="loader-ring"></div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#"><img src="assets/img/logo.png" alt="Mominah Dyeing Services" style="height:40px;" /></a>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#mainNav">
+          <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a class="page-scroll" href="#home">Home</a></li>
+          <li><a class="page-scroll" href="#about">About</a></li>
+          <li><a class="page-scroll" href="#why-us">Why Us</a></li>
+          <li><a class="page-scroll" href="#products">Products</a></li>
+          <li><a class="page-scroll" href="#contact">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section with Slider -->
+<section id="home" class="carousel slide carousel-fade" data-ride="carousel" data-interval="5000">
+  <div class="carousel-inner">
+    <!-- Slide 1 -->
+    <div class="item active">
+      <div class="hero-slide" style="background-image: url('assets/img/Crafted-for-Excellence.jpg');">
+        <div class="hero-content text-center" data-aos="fade-up">
+          <h2>Crafted for Excellence</h2>
+          <p>Delivering high-quality sewing and embroidery threads with precision and care.</p>
+          <a href="#about" class="btn btn-primary page-scroll">About Us</a>
+          <a href="#products" class="btn btn-default page-scroll">Explore Products</a>
+        </div>
+      </div>
+    </div>
+    <!-- Slide 2 -->
+    <div class="item">
+      <div class="hero-slide" style="background-image: url('assets/img/Eco-Friendly-Dyeing.jpg');">
+        <div class="hero-content text-center" data-aos="fade-up">
+          <h2>Eco-Friendly Dyeing</h2>
+          <p>Committed to sustainable practices and REACH-compliant production.</p>
+          <a href="#products" class="btn btn-primary page-scroll">Our Threads</a>
+          <a href="#contact" class="btn btn-default page-scroll">Contact Us</a>
+        </div>
+      </div>
+    </div>
+    <!-- Slide 3 -->
+    <div class="item">
+      <div class="hero-slide" style="background-image: url('assets/img/Truste-by-Industry-Leaders.jpg');">
+        <div class="hero-content text-center" data-aos="fade-up">
+          <h2>Trusted by Industry Leaders</h2>
+          <p>Serving top garment manufacturers across Pakistan for over 20 years.</p>
+          <a href="#about" class="btn btn-primary page-scroll">Our Legacy</a>
+          <a href="#contact" class="btn btn-default page-scroll">Get in Touch</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <a class="left carousel-control" href="#home" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+  </a>
+  <a class="right carousel-control" href="#home" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right"></span>
+  </a>
+</section>
+
+
+  <!-- About -->
+  <section id="about" class="section-padding" style="background: url('assets/img/bg/about-bg.jpg') center center / cover no-repeat fixed;">
+    <div class="container">
+      <div class="section-title text-center" data-aos="fade-up">
+        <h2>About Us</h2>
+        <p>Over 20 years of excellence in thread dyeing and finishing.</p>
+      </div>
+      <div class="row">
+        <div class="col-md-6" data-aos="fade-right">
+          <p><strong>Mominah Dyeing Services</strong> is a trusted name in high-quality sewing and embroidery threads. With deep technical expertise and a commitment to innovation, we serve top garment manufacturers across Pakistan.</p>
+          <p>Established in 1992, our facilities in Karachi produce over 30,000 cones daily, maintaining European standards like REACH and Oeko Tex Class 1.</p>
+        </div>
+        <div class="col-md-6" data-aos="fade-left">
+          <ul>
+            <li>Advanced dyeing formulas</li>
+            <li>Lubricated threads to reduce breakage</li>
+            <li>Eco-compliant production</li>
+            <li>Custom solutions for every client</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- START WHY CHOOSE US -->
+<section id="why-us" class="why_choose section-padding">
+    <div class="container">
+        <div class="section-title text-center">
+            <h2>Why Choose Us</h2>
+        </div>
+        <div class="row">
+            <!-- Reason 1 -->
+            <div class="col-md-4 col-sm-6 mb-4">
+                <div class="single_why text-center p-4">
+                    <div class="icon-circle mx-auto mb-3">
+                        <i class="fa fa-industry fa-2x"></i>
+                    </div>
+                    <h4>20+ Years of Expertise</h4>
+                    <p>Two decades of excellence in dyeing and thread manufacturing, serving top garment brands across Pakistan.</p>
+                </div>
+            </div>
+            <!-- Reason 2 -->
+            <div class="col-md-4 col-sm-6 mb-4">
+                <div class="single_why text-center p-4">
+                    <div class="icon-circle mx-auto mb-3">
+                        <i class="fa fa-flask fa-2x"></i>
+                    </div>
+                    <h4>European Quality Standards</h4>
+                    <p>Compliant with REACH & Oeko-Tex Standard 100 Class 1. Safe, durable, and eco-friendly dyes for all products.</p>
+                </div>
+            </div>
+            <!-- Reason 3 -->
+            <div class="col-md-4 col-sm-6 mb-4">
+                <div class="single_why text-center p-4">
+                    <div class="icon-circle mx-auto mb-3">
+                        <i class="fa fa-cogs fa-2x"></i>
+                    </div>
+                    <h4>Advanced Lubrication Technology</h4>
+                    <p>Special coating minimizes thread breakage and keeps needles cool — maximizing efficiency for your production line.</p>
+                </div>
+            </div>
+            <!-- Reason 4 -->
+            <div class="col-md-4 col-sm-6 mb-4">
+                <div class="single_why text-center p-4">
+                    <div class="icon-circle mx-auto mb-3">
+                        <i class="fa fa-users fa-2x"></i>
+                    </div>
+                    <h4>400+ Skilled Professionals</h4>
+                    <p>Our dedicated team ensures consistent quality, on-time delivery, and flexible solutions tailored to your needs.</p>
+                </div>
+            </div>
+            <!-- Reason 5 -->
+            <div class="col-md-4 col-sm-6 mb-4">
+                <div class="single_why text-center p-4">
+                    <div class="icon-circle mx-auto mb-3">
+                        <i class="fa fa-truck fa-2x"></i>
+                    </div>
+                    <h4>High Capacity & Fast Turnaround</h4>
+                    <p>Producing 30,000+ cones daily with integrated Reeling, Dyeing, Winding, and Spooling for rapid fulfillment.</p>
+                </div>
+            </div>
+            <!-- Reason 6 -->
+            <div class="col-md-4 col-sm-6 mb-4">
+                <div class="single_why text-center p-4">
+                    <div class="icon-circle mx-auto mb-3">
+                        <i class="fa fa-handshake fa-2x"></i>
+                    </div>
+                    <h4>Customer-Centric Partnership</h4>
+                    <p>We don’t just supply threads — we collaborate with you to develop custom solutions for your unique challenges.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- END WHY CHOOSE US -->    
+   <!-- Products -->
+  <section id="products" class="section-padding">
+    <div class="container">
+      <div class="section-title text-center" data-aos="fade-up">
+        <h2>Our Products</h2>
+        <p>Explore our diverse range of threads</p>
+      </div>
+      <div class="swiper mySwiper" data-aos="fade-up">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <img src="assets/img/products/1.jpg" alt="100% Polyester" />
+            <h5>100% Polyester</h5>
+          </div>
+          <div class="swiper-slide">
+            <img src="assets/img/products/2.jpg" alt="Poly Cotton" />
+            <h5>Poly Cotton</h5>
+          </div>
+          <div class="swiper-slide">
+            <img src="assets/img/products/3.jpg" alt="Poly Cotton" />
+            <h5>Poly Cotton</h5>
+          </div>
+          <div class="swiper-slide">
+            <img src="assets/img/products/4.jpg" alt="Poly Cotton" />
+            <h5>Poly Cotton</h5>
+          </div>
+          <div class="swiper-slide">
+            <img src="assets/img/products/5.jpg" alt="Mercerized Cotton" />
+            <h5>Mercerized Cotton</h5>
+          </div>
+          <div class="swiper-slide">
+            <img src="assets/img/products/6.jpg" alt="Water Soluble Thread" />
+            <h5>Water Soluble Thread</h5>
+          </div>
+          <div class="swiper-slide">
+            <img src="assets/img/products/7.jpg" alt="Water Soluble Thread" />
+            <h5>Water Soluble Thread</h5>
+          </div>
+          <div class="swiper-slide">
+            <img src="assets/img/products/8.jpg" alt="Nylon Viscos Flex" />
+            <h5>Nylon Viscos Flex</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact" class="section-padding bg-light">
+    <div class="container">
+      <div class="section-title text-center" data-aos="fade-up">
+        <h2>Get in Touch</h2>
+        <p>We’d love to hear from you</p>
+      </div>
+      <div class="row">
+        <div class="col-md-6" data-aos="fade-right">
+          <form id="contact-form">
+            <div class="form-group">
+              <input type="text" name="name" class="form-control" placeholder="Your Name" required />
+            </div>
+            <div class="form-group">
+              <input type="email" name="email" class="form-control" placeholder="Your Email" required />
+            </div>
+            <div class="form-group">
+              <textarea name="message" class="form-control" rows="5" placeholder="Your Message" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Send Message</button>
+          </form>
+        </div>
+        <div class="col-md-6" data-aos="fade-left">
+          <h4>Contact Info</h4>
+          <p><i class="fa fa-map-marker"></i> Plot# 253, Sector 24, Korangi Industrial Area, Karachi</p>
+          <p><i class="fa fa-phone"></i> (+92) 3343880997</p>
+          <p><i class="fa fa-envelope"></i> info@mominahdyeing.com</p>
+          <p><i class="fa fa-clock-o"></i> Mon–Sat: 9:00 AM – 5:00 PM</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Floating Contact Button -->
+  <a href="#contact" class="floating-contact"><i class="fa fa-envelope"></i></a>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 Mominah Dyeing Services. All rights reserved.</p>
+      <ul class="list-inline">
+        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+        <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init();
+
+    // Smooth Scroll
+    /*
+    document.querySelectorAll('a.page-scroll').forEach(anchor => {
+      anchor.addEventListener("click", function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute("href")).scrollIntoView({ behavior: "smooth" });
+      });
+    });
+    */
+    // Sticky Navbar
+    window.addEventListener("scroll", function() {
+      document.querySelector(".navbar").classList.toggle("scrolled", window.scrollY > 50);
+    });
+
+    // EmailJS Init
+    emailjs.init("YOUR_USER_ID"); // Replace with your EmailJS user ID
+
+    // Contact Form Submission
+    document.getElementById("contact-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      emailjs.sendForm("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", this)
+        .then(() => alert("Message sent successfully!"), err => alert("Failed to send: " + err));
+    });
+
+    // Swiper Init
+    new Swiper(".mySwiper", {
+      loop: true,
+      autoplay: { delay: 3000 },
+      slidesPerView: 1,
+      spaceBetween: 20,
+      breakpoints: {
+        768: { slidesPerView: 2 },
+        1024: { slidesPerView: 3 }
+      }
+    });
+
+    // Loader Fade
+    window.addEventListener("load", () => {
+      const loader = document.getElementById("loader");
+      loader.style.opacity = "0";
+      setTimeout(() => loader.style.display = "none", 1000);
+    });
+  </script>
+  <script>
+    // Smooth scroll for navigation links
+    $('.navbar-nav a.page-scroll').on('click', function(event) {
+        if (this.hash !== "") {
+            event.preventDefault();
+            var hash = this.hash;
+            $('html, body').animate({
+                scrollTop: $(hash).offset().top - 80 // Adjust for sticky header
+            }, 800, function(){
+                window.location.hash = hash;
+            });
+        }
+    });
+</script>
+</body>
+</html>
